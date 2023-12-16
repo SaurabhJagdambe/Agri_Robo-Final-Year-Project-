@@ -1,0 +1,140 @@
+#define BLYNK_TEMPLATE_ID           "TMPLhp4fFOJA"
+#define BLYNK_DEVICE_NAME           "Quickstart Device"
+#define BLYNK_AUTH_TOKEN            "ATvj5ELHEjxYN-96efFnNGNL04OFHhA_"
+#define BLYNK_PRINT Serial
+#include <ESP8266WiFi.h>
+#include <BlynkSimpleEsp8266.h>
+char auth[] = BLYNK_AUTH_TOKEN;
+char ssid[] = "saurabh";
+char pass[] = "S12345";
+
+int pinValue0;
+int pinValue1;
+int pinValue2;
+int pinValue3;
+int pinValue4;
+int pinValue5;
+int pinValue6;
+#define rly1 D0
+#define rly2 D1
+#define M11 D5
+#define M12 D6
+#define M21 D7
+#define M22 D8
+BLYNK_WRITE(V0)
+{
+  pinValue0 = param.asInt();
+  Serial.println("FW");
+  Serial.println(pinValue0);
+}
+BLYNK_WRITE(V1)
+{
+  pinValue1 = param.asInt();
+  Serial.println("RW");
+  Serial.println(pinValue1);
+}
+BLYNK_WRITE(V2)
+{
+  pinValue2 = param.asInt();
+  Serial.println("RT");
+  Serial.println(pinValue2);
+}
+BLYNK_WRITE(V3)
+{
+  pinValue3 = param.asInt();
+  Serial.println("LT");
+  Serial.println(pinValue3);
+}
+BLYNK_WRITE(V4)
+{
+  pinValue4 = param.asInt();
+  Serial.println("ST");
+  Serial.println(pinValue4);
+}
+BLYNK_WRITE(V5)
+{
+  pinValue5 = param.asInt();
+  Serial.println("rly1");
+  Serial.println(pinValue5);
+}
+BLYNK_WRITE(V6)
+{
+  pinValue6 = param.asInt();
+  Serial.println("rly2");
+  Serial.println(pinValue6);
+  if (pinValue6 == 1)
+  {
+    Serial.println(7);
+    digitalWrite(rly2, HIGH);
+  }
+  else
+  {
+    digitalWrite(rly2, LOW);
+  }
+}
+void setup()
+{
+  Serial.begin(115200);
+  Blynk.begin(auth, ssid, pass);
+  pinMode(M11, OUTPUT);
+  pinMode(M12, OUTPUT);
+  pinMode(M21, OUTPUT);
+  pinMode(M22, OUTPUT);
+  pinMode(rly1, OUTPUT);
+  pinMode(rly2, OUTPUT);
+  digitalWrite(rly1, LOW);
+  digitalWrite(rly2, LOW);
+}
+
+void loop()
+{
+  if (pinValue0 == 1)
+  {
+    Serial.println(1);
+    digitalWrite(M11, HIGH);
+    digitalWrite(M12, LOW);
+    digitalWrite(M21, HIGH);
+    digitalWrite(M22, LOW);
+  }
+  if (pinValue1 == 1)
+  {
+    Serial.println(2);
+    digitalWrite(M11, LOW);
+    digitalWrite(M12, HIGH);
+    digitalWrite(M21, LOW);
+    digitalWrite(M22, HIGH);
+  }
+  if (pinValue2 == 1)
+  {
+    Serial.println(3);
+    digitalWrite(M11, HIGH);
+    digitalWrite(M12, LOW);
+    digitalWrite(M21, LOW);
+    digitalWrite(M22, HIGH);
+  }
+  if (pinValue3 == 1)
+  {
+    Serial.println(4);
+    digitalWrite(M11, LOW);
+    digitalWrite(M12, HIGH);
+    digitalWrite(M21, HIGH);
+    digitalWrite(M22, LOW);
+  }
+  if (pinValue4 == 1)
+  {
+    Serial.println(5);
+    digitalWrite(M11, LOW);
+    digitalWrite(M12, LOW);
+    digitalWrite(M21, LOW);
+    digitalWrite(M22, LOW);
+  }
+  if (pinValue5 == 1)
+  {
+    Serial.println(6);
+    digitalWrite(rly1, HIGH);
+  }
+  else
+  {
+    digitalWrite(rly1, LOW);
+  }
+ }
